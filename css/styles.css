@@ -18,8 +18,15 @@ a { text-decoration: none; color: inherit; }
 
 .main-area { position: relative; flex: 1; min-width: 0; }
 
-/* Fondo de ondas fijo: no se mueve al hacer scroll */
-#waves { position: absolute; inset: 0; z-index: 0; }
+/* Fondo de ondas fijo: no se mueve al hacer scroll.
+   Blur tipo cristal (como el topbar). scale() evita el borde que deja el blur. */
+#waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: blur(10px) contrast(1.05);
+  transform: scale(1.05);
+}
 #waves canvas { display: block; width: 100% !important; height: 100% !important; }
 
 /* Contenido que se desplaza sobre las ondas */
@@ -99,20 +106,58 @@ a { text-decoration: none; color: inherit; }
   .hero-title { max-width: 12ch; }
 }
 
-/* ── product grid (commerce dark) ───────────────────── */
+/* ── productos: lista vertical + fila horizontal ────── */
 .products { padding: 1rem 1.25rem 4rem; }
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem 0.75rem;
-}
 @media (min-width: 768px) {
   .products { padding: 2rem 1.5rem 5rem; }
-  .products-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 }
-@media (min-width: 1024px) {
-  .products-grid { grid-template-columns: repeat(4, 1fr); }
+
+.section-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-bottom: 1rem;
 }
+
+/* lista vertical */
+.list { display: flex; flex-direction: column; margin-bottom: 3rem; }
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(39, 39, 42, 0.5);
+}
+.list-media {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 1px solid #27272a;
+  background: linear-gradient(160deg, #3f3f46 0%, #18181b 65%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #52525b;
+  flex-shrink: 0;
+}
+.list-info { flex: 1; min-width: 0; }
+.list-name { font-size: 0.9375rem; font-weight: 500; color: #fafafa; }
+.list-price { margin-top: 0.15rem; font-size: 0.875rem; color: #a1a1aa; }
+.list-arrow { width: 20px; height: 20px; color: #52525b; flex-shrink: 0; }
+
+/* fila horizontal (scroll) */
+.h-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+.h-scroll .card { min-width: 9.5rem; flex-shrink: 0; scroll-snap-align: start; }
 
 .card { display: block; }
 .card-media {

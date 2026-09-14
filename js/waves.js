@@ -7,7 +7,8 @@ let renderer;
 
 try {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // 1.5: suficiente con el blur del fondo, la mitad de pixels que 2x
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   container.appendChild(renderer.domElement);
 } catch (e) {
   container.innerHTML =

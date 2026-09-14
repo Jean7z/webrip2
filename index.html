@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09090b">
 <title>Acme Store</title>
-<link rel="stylesheet" href="css/styles.css?v=4">
+<link rel="stylesheet" href="css/styles.css?v=5">
 </head>
 <body>
 <main class="app">
@@ -52,17 +52,40 @@
         <p class="hero-desc">Los mejores productos de nuestra tienda. Diseñados para durar, hechos con intención.</p>
       </section>
 
-      <!-- Grid de productos -->
+      <!-- Productos: lista vertical + fila horizontal -->
       <section class="products">
-        <div class="products-grid">
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">C</span></div><p class="card-name">Circle T-Shirt</p><p class="card-price">$20.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">H</span></div><p class="card-name">All-Over Hoodie</p><p class="card-price">$60.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">B</span></div><p class="card-name">Drawstring Bag</p><p class="card-price">$38.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">T</span></div><p class="card-name">Team T-Shirt</p><p class="card-price">$25.00</p></a>
+        <h2 class="section-label">Nuevo</h2>
+        <div class="list">
+          <a class="list-row" href="#">
+            <div class="list-media">C</div>
+            <div class="list-info"><p class="list-name">Circle T-Shirt</p><p class="list-price">$20.00</p></div>
+            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+          <a class="list-row" href="#">
+            <div class="list-media">H</div>
+            <div class="list-info"><p class="list-name">All-Over Hoodie</p><p class="list-price">$60.00</p></div>
+            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+          <a class="list-row" href="#">
+            <div class="list-media">B</div>
+            <div class="list-info"><p class="list-name">Drawstring Bag</p><p class="list-price">$38.00</p></div>
+            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+          <a class="list-row" href="#">
+            <div class="list-media">T</div>
+            <div class="list-info"><p class="list-name">Team T-Shirt</p><p class="list-price">$25.00</p></div>
+            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+        </div>
+
+        <h2 class="section-label">También te puede gustar</h2>
+        <div class="h-scroll">
           <a class="card" href="#"><div class="card-media"><span class="card-initial">L</span></div><p class="card-name">Logo T-Shirt</p><p class="card-price">$22.00</p></a>
           <a class="card" href="#"><div class="card-media"><span class="card-initial">J</span></div><p class="card-name">Track Jacket</p><p class="card-price">$75.00</p></a>
           <a class="card" href="#"><div class="card-media"><span class="card-initial">C</span></div><p class="card-name">Acme Cap</p><p class="card-price">$28.00</p></a>
           <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Short Sleeve Tee</p><p class="card-price">$22.00</p></a>
+          <a class="card" href="#"><div class="card-media"><span class="card-initial">N</span></div><p class="card-name">Notebook</p><p class="card-price">$18.00</p></a>
+          <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Stickers Pack</p><p class="card-price">$12.00</p></a>
         </div>
       </section>
 
@@ -119,7 +142,7 @@
 
 </main>
 
-<script type="module" src="js/waves.js?v=2"></script>
+<script type="module" src="js/waves.js?v=3"></script>
 <script defer src="js/sidebar.js"></script>
 </body>
 </html>
