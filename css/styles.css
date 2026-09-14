@@ -131,6 +131,8 @@ a { text-decoration: none; color: inherit; }
 .p-card:active { border-color: #3f3f46; }
 .p-card--featured { min-height: 26rem; }
 .p-art { width: 58%; max-width: 13rem; opacity: 0.9; }
+/* foto de producto: fondo oscuro que se funde con la card */
+.p-card img.p-art { width: 72%; max-width: 17rem; height: auto; }
 /* etiqueta flotante: nombre + pildora de precio */
 .p-label {
   position: absolute;
