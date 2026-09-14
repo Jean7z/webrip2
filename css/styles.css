@@ -121,8 +121,10 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   min-height: 22rem;
   border-radius: 1rem;
-  border: 1px solid #1f1f1f;
-  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 9, 11, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   overflow: hidden;
   transition: border-color 0.2s ease;
 }
@@ -172,6 +174,41 @@ a { text-decoration: none; color: inherit; }
 .p-grid .p-card { min-height: 15rem; }
 .p-grid .p-art { width: 62%; }
 .p-grid .p-label { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
+
+/* fila horizontal deslizable al final */
+.section-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-bottom: 1rem;
+}
+.h-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+.h-scroll .card { min-width: 9.5rem; flex-shrink: 0; scroll-snap-align: start; }
+
+.card { display: block; }
+.card-media {
+  aspect-ratio: 4 / 5;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(160deg, rgba(63, 63, 70, 0.5) 0%, rgba(24, 24, 27, 0.5) 65%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-initial { font-size: 1.5rem; font-weight: 700; color: rgba(148, 163, 184, 0.7); letter-spacing: -0.02em; }
+.card-name { margin-top: 0.75rem; font-size: 0.8125rem; color: #a1a1aa; }
+.card-price { margin-top: 0.25rem; font-size: 0.9375rem; font-weight: 600; color: #fafafa; }
 
 /* ── desktop rail (hover-expand) ────────────────────── */
 .rail {
