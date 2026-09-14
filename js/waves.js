@@ -61,17 +61,29 @@ const uniforms = {
 const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
 scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
 
-const onResize = () => {
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  renderer.setSize(w, h);
-  uniforms.iResolution.value.set(w, h);
+// Sincroniza el buffer del canvas con su tamaño real cada vez que cambia.
+// Evita pixelado/lag cuando el navegador restaura la pestana sin disparar resize.
+let sizeW = 0;
+let sizeH = 0;
+const syncSize = () => {
+  const w = container.clientWidth || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
+  if (w !== sizeW || h !== sizeH) {
+    sizeW = w;
+    sizeH = h;
+    renderer.setSize(w, h);
+    uniforms.iResolution.value.set(w, h);
+  }
 };
-window.addEventListener("resize", onResize);
-onResize();
+window.addEventListener("resize", syncSize);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) syncSize();
+});
+syncSize();
 
 // Velocidad: 0.4 = 60% mas lento que el shader original
 renderer.setAnimationLoop(() => {
+  syncSize();
   uniforms.iTime.value = clock.getElapsedTime() * 0.4;
   renderer.render(scene, camera);
 });
