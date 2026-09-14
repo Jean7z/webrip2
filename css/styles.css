@@ -26,11 +26,11 @@ a { text-decoration: none; color: inherit; }
 .topbar {
   position: relative;
   z-index: 50;
-  height: 2.5rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 1rem;
+  padding: 0 1.25rem;
   background: transparent;
 }
 
