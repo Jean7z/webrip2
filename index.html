@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09090b">
 <title>Acme Store</title>
-<link rel="stylesheet" href="css/styles.css?v=6">
+<link rel="stylesheet" href="css/styles.css?v=7">
 </head>
 <body>
 <main class="app">
@@ -28,23 +28,24 @@
     <!-- Fondos fijos -->
     <div id="waves" aria-label="Animated wave background"></div>
 
+    <!-- Topbar movil: glass, flota sobre el overlay -->
+    <header class="topbar">
+      <span class="wordmark">Acme</span>
+      <div class="topbar-right">
+        <!-- Carrito -->
+        <button aria-label="Carrito">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </button>
+        <!-- Hamburguesa <-> X -->
+        <button id="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+          <svg class="icon-menu" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </header>
+
     <!-- Contenido que scrollea -->
     <div class="scroll">
-
-      <!-- Topbar movil: glass sticky -->
-      <header class="topbar">
-        <span class="wordmark">Acme</span>
-        <div class="topbar-right">
-          <!-- Carrito -->
-          <button aria-label="Carrito">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </button>
-          <!-- Hamburguesa -->
-          <button id="menu-btn" aria-label="Abrir menú">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-          </button>
-        </div>
-      </header>
 
       <!-- Hero commerce -->
       <section class="hero">
@@ -89,23 +90,12 @@
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="store-footer">
-        <div class="footer-bar">
-          <p>&copy; 2026 Acme Store</p>
-          <p class="powered">Powered by <span class="triangle">&#9650;</span> Vercel</p>
-        </div>
-      </footer>
-
     </div><!-- .scroll -->
 
   </div>
 
   <!-- Overlay movil -->
   <div class="overlay" id="overlay">
-    <button class="overlay-close" id="close-btn" aria-label="Cerrar menú">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
     <div>
       <a class="logo overlay-link" href="#"><div class="logo-box">A</div><span>Acme</span></a>
       <div class="overlay-links">

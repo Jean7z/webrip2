@@ -16,7 +16,13 @@ a { text-decoration: none; color: inherit; }
   background: #000;
 }
 
-.main-area { position: relative; flex: 1; min-width: 0; }
+.main-area {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
 
 /* Fondo de ondas fijo: no se mueve al hacer scroll.
    Blur tipo cristal (como el topbar). scale() evita el borde que deja el blur. */
@@ -33,16 +39,17 @@ a { text-decoration: none; color: inherit; }
 .scroll {
   position: relative;
   z-index: 1;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
-/* ── mobile topbar (glass, sticky) ──────────────────── */
+/* ── mobile topbar (glass, flotante sobre el overlay) ── */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  position: relative;
+  z-index: 110; /* por encima del overlay (100) para mostrar la X */
+  flex-shrink: 0;
   height: 4rem;
   display: flex;
   align-items: center;
@@ -54,6 +61,11 @@ a { text-decoration: none; color: inherit; }
 }
 .wordmark { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; color: #fafafa; }
 .topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+
+/* boton hamburguesa <-> X cuando el menu esta abierto */
+.icon-close { display: none; }
+.topbar button.open .icon-menu { display: none; }
+.topbar button.open .icon-close { display: block; }
 
 /* botones icono estilo shadcn (variante icon) */
 .topbar button {
@@ -175,24 +187,6 @@ a { text-decoration: none; color: inherit; }
 .card-name { margin-top: 0.75rem; font-size: 0.8125rem; color: #a1a1aa; }
 .card-price { margin-top: 0.25rem; font-size: 0.9375rem; font-weight: 600; color: #fafafa; }
 
-/* ── footer (commerce) ──────────────────────────────── */
-.store-footer {
-  background: linear-gradient(to top, rgba(9, 9, 11, 0.95), rgba(9, 9, 11, 0.7));
-  border-top: 1px solid rgba(39, 39, 42, 0.6);
-  padding: 2.5rem 1.25rem 1.5rem;
-}
-
-.footer-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(39, 39, 42, 0.6);
-  padding-top: 1.25rem;
-  font-size: 0.75rem;
-  color: #71717a;
-}
-.powered .triangle { display: inline-block; transform: scale(0.9); color: #a1a1aa; }
-
 /* ── desktop rail (hover-expand) ────────────────────── */
 .rail {
   height: 100dvh;
@@ -291,15 +285,6 @@ a { text-decoration: none; color: inherit; }
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .overlay.open { transform: translateX(0); opacity: 1; pointer-events: auto; }
-.overlay-close {
-  position: absolute;
-  right: 2.5rem;
-  top: 2.5rem;
-  background: none;
-  border: none;
-  color: #e5e5e5;
-  cursor: pointer;
-}
 .overlay-links {
   display: flex;
   flex-direction: column;
