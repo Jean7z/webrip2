@@ -99,9 +99,9 @@ document.addEventListener("visibilitychange", () => {
 });
 syncSize();
 
-// Velocidad: 0.4 = 60% mas lento que el shader original
+// Velocidad: 0.25 = mas lento (ajustable: mas alto = mas rapido)
 renderer.setAnimationLoop(() => {
   syncSize();
-  uniforms.iTime.value = clock.getElapsedTime() * 0.4;
+  uniforms.iTime.value = clock.getElapsedTime() * 0.25;
   renderer.render(scene, camera);
 });
