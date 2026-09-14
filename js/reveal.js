@@ -6,10 +6,8 @@ if (items.length && "IntersectionObserver" in window) {
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add("in");
-          io.unobserve(en.target);
-        }
+        if (en.isIntersecting) en.target.classList.add("in");
+        else en.target.classList.remove("in");
       });
     },
     { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
