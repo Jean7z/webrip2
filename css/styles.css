@@ -212,6 +212,25 @@ a { text-decoration: none; color: inherit; }
 .card-name { margin-top: 0.75rem; font-size: 0.8125rem; color: #a1a1aa; }
 .card-price { margin-top: 0.25rem; font-size: 0.9375rem; font-weight: 600; color: #fafafa; }
 
+/* ── revelado al hacer scroll (fade + subida) ──────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+/* escalonado entre hermanos */
+.products > .reveal:nth-child(2) { transition-delay: 70ms; }
+.products > .reveal:nth-child(3) { transition-delay: 140ms; }
+.products > .reveal:nth-child(4) { transition-delay: 210ms; }
+.products > .reveal:nth-child(5) { transition-delay: 280ms; }
+.h-scroll .card:nth-child(2) { transition-delay: 40ms; }
+.h-scroll .card:nth-child(3) { transition-delay: 80ms; }
+.h-scroll .card:nth-child(4) { transition-delay: 120ms; }
+.h-scroll .card:nth-child(5) { transition-delay: 160ms; }
+.h-scroll .card:nth-child(6) { transition-delay: 200ms; }
+.h-scroll .card:nth-child(7) { transition-delay: 240ms; }
+
 /* ── desktop rail (hover-expand) ────────────────────── */
 .rail {
   height: 100dvh;
@@ -328,4 +347,5 @@ a { text-decoration: none; color: inherit; }
   .rail-label { opacity: 1; }
   .overlay { transition: none; transform: none; opacity: 0; pointer-events: none; }
   .p-card { transition: none; }
+  .reveal { transition: none; opacity: 1; transform: none; }
 }

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09090b">
 <title>Acme Store</title>
-<link rel="stylesheet" href="css/styles.css?v=12">
+<link rel="stylesheet" href="css/styles.css?v=13">
 </head>
 <body>
 <main class="app">
@@ -51,7 +51,7 @@
 
       <!-- Hero: producto destacado (card grande) -->
       <section class="hero">
-        <a class="p-card p-card--featured" href="#">
+        <a class="p-card p-card--featured" data-reveal href="#">
           <img class="p-art" src="t-shirt-1.png" alt="Circle T-Shirt">
           <span class="p-label"><span class="p-name">Circle T-Shirt</span><span class="p-pill">$20.00 USD</span></span>
         </a>
@@ -59,18 +59,18 @@
 
       <!-- Productos: tarjetas apiladas + grid de cierre -->
       <section class="products">
-        <a class="p-card" href="#">
+        <a class="p-card" data-reveal href="#">
           <img class="p-art" src="bag-1-dark.png" alt="Drawstring Bag">
           <span class="p-label"><span class="p-name">Drawstring Bag</span><span class="p-pill">$12.00 USD</span></span>
         </a>
 
-        <a class="p-card" href="#">
+        <a class="p-card" data-reveal href="#">
           <img class="p-art" src="cup-black.jpg" alt="Acme Cup">
           <span class="p-label"><span class="p-name">Acme Cup</span><span class="p-pill">$15.00 USD</span></span>
         </a>
 
         <div class="p-grid">
-          <a class="p-card" href="#">
+          <a class="p-card" data-reveal href="#">
             <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
               <g transform="translate(20 16) scale(6.4)">
                 <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
@@ -82,21 +82,21 @@
             </svg>
             <span class="p-label"><span class="p-name">Acme Mug</span><span class="p-pill">$15.00 USD</span></span>
           </a>
-          <a class="p-card" href="#">
+          <a class="p-card" data-reveal href="#">
             <img class="p-art" src="hoodie-1.jpg" alt="All-Over Hoodie">
             <span class="p-label"><span class="p-name">All-Over Hoodie</span><span class="p-pill">$60.00 USD</span></span>
           </a>
         </div>
 
-        <h2 class="section-label">También te puede gustar</h2>
-        <div class="h-scroll">
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">L</span></div><p class="card-name">Logo T-Shirt</p><p class="card-price">$22.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">T</span></div><p class="card-name">Team T-Shirt</p><p class="card-price">$25.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">J</span></div><p class="card-name">Track Jacket</p><p class="card-price">$75.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">C</span></div><p class="card-name">Acme Cap</p><p class="card-price">$28.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Short Sleeve Tee</p><p class="card-price">$22.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">N</span></div><p class="card-name">Notebook</p><p class="card-price">$18.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Stickers Pack</p><p class="card-price">$12.00</p></a>
+        <h2 class="section-label" data-reveal>También te puede gustar</h2>
+        <div class="h-scroll" data-reveal>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">L</span></div><p class="card-name">Logo T-Shirt</p><p class="card-price">$22.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">T</span></div><p class="card-name">Team T-Shirt</p><p class="card-price">$25.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">J</span></div><p class="card-name">Track Jacket</p><p class="card-price">$75.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">C</span></div><p class="card-name">Acme Cap</p><p class="card-price">$28.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Short Sleeve Tee</p><p class="card-price">$22.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">N</span></div><p class="card-name">Notebook</p><p class="card-price">$18.00</p></a>
+          <a class="card" data-reveal href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Stickers Pack</p><p class="card-price">$12.00</p></a>
         </div>
       </section>
 
@@ -121,6 +121,7 @@
 </main>
 
 <script type="module" src="js/waves.js?v=6"></script>
+<script defer src="js/reveal.js"></script>
 <script defer src="js/sidebar.js"></script>
 </body>
 </html>
