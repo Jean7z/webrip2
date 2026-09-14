@@ -1,0 +1,161 @@
+/* ============================================================
+   Flowing Waves — estilos
+   ============================================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+a { text-decoration: none; color: inherit; }
+
+/* ── layout ─────────────────────────────────────────── */
+.app {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #000;
+}
+
+.main-area { position: relative; flex: 1; min-width: 0; }
+
+/* ── waves ──────────────────────────────────────────── */
+#waves { position: absolute; inset: 0; z-index: 0; }
+#waves canvas { display: block; width: 100% !important; height: 100% !important; }
+
+/* ── mobile topbar ──────────────────────────────────── */
+.topbar {
+  position: relative;
+  z-index: 50;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  background: #262626;
+}
+.topbar button { background: none; border: none; color: #e5e5e5; cursor: pointer; }
+
+@media (min-width: 768px) {
+  .topbar { display: none; }
+}
+
+/* ── desktop rail ───────────────────────────────────── */
+.rail {
+  height: 100dvh;
+  width: 60px;
+  background: #262626;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0.75rem;
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+}
+.rail:hover { width: 300px; }
+.rail:hover .rail-label { opacity: 1; transition-delay: 0.15s; }
+
+@media (min-width: 768px) {
+  .rail { display: flex; }
+}
+
+.rail-label {
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.rail-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+/* ── shared link / logo / avatar ────────────────────── */
+.link, .overlay-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #e5e5e5;
+  white-space: nowrap;
+  transition: transform 0.15s ease;
+}
+.link:hover, .overlay-link:hover { transform: translateX(4px); }
+.link svg, .overlay-link svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #fff;
+  white-space: nowrap;
+}
+.logo-box {
+  width: 1.5rem;
+  height: 1.25rem;
+  background: #fff;
+  flex-shrink: 0;
+  border-radius: 0.5rem 0.125rem 0.5rem 0.125rem;
+}
+
+.avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background: #525252;
+  color: #fff;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── mobile overlay ─────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #171717;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem;
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.overlay.open { transform: translateX(0); opacity: 1; pointer-events: auto; }
+.overlay-close {
+  position: absolute;
+  right: 2.5rem;
+  top: 2.5rem;
+  background: none;
+  border: none;
+  color: #e5e5e5;
+  cursor: pointer;
+}
+.overlay-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .overlay { display: none; }
+}
+
+/* ── reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .rail { transition: none; width: 300px; }
+  .rail-label { opacity: 1; }
+  .overlay { transition: none; transform: none; opacity: 0; pointer-events: none; }
+  #waves canvas { display: none; }
+  .app { background: radial-gradient(120% 90% at 50% 0%, #101b33 0%, #060b16 100%); }
+}
