@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09090b">
 <title>Acme Store</title>
-<link rel="stylesheet" href="css/styles.css?v=9">
+<link rel="stylesheet" href="css/styles.css?v=10">
 </head>
 <body>
 <main class="app">
@@ -30,63 +30,87 @@
 
     <!-- Topbar movil: glass, flota sobre el overlay -->
     <header class="topbar">
-      <span class="wordmark">Acme</span>
-      <div class="topbar-right">
-        <!-- Carrito -->
-        <button aria-label="Carrito">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        </button>
-        <!-- Hamburguesa <-> X -->
-        <button id="menu-btn" aria-label="Abrir menú" aria-expanded="false">
-          <svg class="icon-menu" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-          <svg class="icon-close" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
+      <!-- Hamburguesa <-> X -->
+      <button id="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+        <svg class="icon-menu" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <!-- Logo + marca -->
+      <a class="wordmark" href="#">
+        <span class="logo-box"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5 21 19.5H3Z"/></svg></span>
+        <span>Acme Store</span>
+      </a>
+      <!-- Carrito -->
+      <button aria-label="Carrito">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </button>
     </header>
 
     <!-- Contenido que scrollea -->
     <div class="scroll">
 
-      <!-- Hero commerce -->
+      <!-- Hero: producto destacado (card grande) -->
       <section class="hero">
-        <h1 class="hero-title">Nueva Colección</h1>
-        <p class="hero-desc">Los mejores productos de nuestra tienda. Diseñados para durar, hechos con intención.</p>
+        <a class="p-card p-card--featured" href="#">
+          <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <g transform="translate(20 16) scale(6.4)">
+              <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+              <circle cx="12" cy="12" r="2.4"/>
+              <circle cx="12" cy="12" r="4.6"/>
+            </g>
+          </svg>
+          <span class="p-label"><span class="p-name">Circle T-Shirt</span><span class="p-pill">$20.00 USD</span></span>
+        </a>
       </section>
 
-      <!-- Productos: lista vertical + fila horizontal -->
+      <!-- Productos: tarjetas apiladas + grid de cierre -->
       <section class="products">
-        <h2 class="section-label">Nuevo</h2>
-        <div class="list">
-          <a class="list-row" href="#">
-            <div class="list-media">C</div>
-            <div class="list-info"><p class="list-name">Circle T-Shirt</p><p class="list-price">$20.00</p></div>
-            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="list-row" href="#">
-            <div class="list-media">H</div>
-            <div class="list-info"><p class="list-name">All-Over Hoodie</p><p class="list-price">$60.00</p></div>
-            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="list-row" href="#">
-            <div class="list-media">B</div>
-            <div class="list-info"><p class="list-name">Drawstring Bag</p><p class="list-price">$38.00</p></div>
-            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="list-row" href="#">
-            <div class="list-media">T</div>
-            <div class="list-info"><p class="list-name">Team T-Shirt</p><p class="list-price">$25.00</p></div>
-            <svg class="list-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-        </div>
+        <a class="p-card" href="#">
+          <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <g transform="translate(24 36) scale(6.2)">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" x2="21" y1="6" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </g>
+          </svg>
+          <span class="p-label"><span class="p-name">Drawstring Bag</span><span class="p-pill">$12.00 USD</span></span>
+        </a>
 
-        <h2 class="section-label">También te puede gustar</h2>
-        <div class="h-scroll">
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">L</span></div><p class="card-name">Logo T-Shirt</p><p class="card-price">$22.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">J</span></div><p class="card-name">Track Jacket</p><p class="card-price">$75.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">C</span></div><p class="card-name">Acme Cap</p><p class="card-price">$28.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Short Sleeve Tee</p><p class="card-price">$22.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">N</span></div><p class="card-name">Notebook</p><p class="card-price">$18.00</p></a>
-          <a class="card" href="#"><div class="card-media"><span class="card-initial">S</span></div><p class="card-name">Stickers Pack</p><p class="card-price">$12.00</p></a>
+        <a class="p-card" href="#">
+          <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M61 66h78l-9 106H70Z"/>
+            <path d="M55 66h90"/>
+            <path d="M84 66 74 20"/>
+            <path d="M74 20h12"/>
+          </svg>
+          <span class="p-label"><span class="p-name">Acme Cup</span><span class="p-pill">$15.00 USD</span></span>
+        </a>
+
+        <div class="p-grid">
+          <a class="p-card" href="#">
+            <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <g transform="translate(20 16) scale(6.4)">
+                <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+                <line x1="6" x2="6" y1="2" y2="4"/>
+                <line x1="10" x2="10" y1="2" y2="4"/>
+                <line x1="14" x2="14" y1="2" y2="4"/>
+              </g>
+            </svg>
+            <span class="p-label"><span class="p-name">Acme Mug</span><span class="p-pill">$15.00 USD</span></span>
+          </a>
+          <a class="p-card" href="#">
+            <svg class="p-art" viewBox="0 0 200 200" fill="none" stroke="rgba(250,250,250,0.9)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+              <g transform="translate(20 16) scale(6.4)">
+                <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+                <path d="M9 8c0-3.2 1.3-5.4 3-5.4s3 2.2 3 5.4"/>
+                <path d="M10.7 8.6 10 13"/>
+                <path d="M13.3 8.6l.7 4.4"/>
+                <path d="M8.2 12.5h7.6"/>
+              </g>
+            </svg>
+            <span class="p-label"><span class="p-name">All-Over Hoodie</span><span class="p-pill">$60.00 USD</span></span>
+          </a>
         </div>
       </section>
 

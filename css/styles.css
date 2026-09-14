@@ -59,16 +59,28 @@ a { text-decoration: none; color: inherit; }
   z-index: 110; /* por encima del overlay (100) para mostrar la X */
   flex-shrink: 0;
   height: 4rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem;
   padding: 0 1.25rem;
   background: rgba(9, 9, 11, 0.65);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-.wordmark { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; color: #fafafa; }
-.topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+/* logo + marca centrados */
+.wordmark {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fafafa;
+}
+.wordmark .logo-box svg { width: 0.8rem; height: 0.8rem; }
 
 /* boton hamburguesa <-> X cuando el menu esta abierto */
 .icon-close { display: none; }
@@ -98,102 +110,68 @@ a { text-decoration: none; color: inherit; }
   .topbar { display: none; }
 }
 
-/* ── hero (commerce: titular grande + descripcion) ──── */
-.hero {
-  min-height: calc(100dvh - 4rem);
+/* ── hero: producto destacado (card negra) ────────── */
+.hero { padding: 1rem 1.25rem 0; }
+
+/* tarjeta de producto (estilo acme-store dark) */
+.p-card {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 4rem 1.5rem 3rem;
+  min-height: 22rem;
+  border-radius: 1rem;
+  border: 1px solid #1f1f1f;
+  background: #000;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
 }
-.hero-title {
-  font-size: clamp(2.5rem, 9vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: #fafafa;
-  max-width: 14ch;
+.p-card:active { border-color: #3f3f46; }
+.p-card--featured { min-height: 26rem; }
+.p-art { width: 58%; max-width: 13rem; opacity: 0.9; }
+/* etiqueta flotante: nombre + pildora de precio */
+.p-label {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
-.hero-desc {
-  margin-top: 1.25rem;
-  max-width: 34rem;
-  color: #a1a1aa;
-  font-size: 0.9375rem;
-  line-height: 1.6;
+.p-name { font-size: 0.875rem; font-weight: 700; color: #fff; }
+.p-pill {
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
 }
 
 @media (min-width: 768px) {
-  .hero-title { max-width: 12ch; }
+  .hero { padding: 2rem 1.5rem 0; }
 }
 
-/* ── productos: lista vertical + fila horizontal ────── */
-.products { padding: 1rem 1.25rem 4rem; }
+/* ── productos: tarjetas apiladas + grid de cierre ── */
+.products {
+  padding: 1rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 @media (min-width: 768px) {
   .products { padding: 2rem 1.5rem 5rem; }
 }
 
-.section-label {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #71717a;
-  margin-bottom: 1rem;
-}
-
-/* lista vertical */
-.list { display: flex; flex-direction: column; margin-bottom: 3rem; }
-.list-row {
-  display: flex;
-  align-items: center;
+/* grid final de 2 columnas */
+.p-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(39, 39, 42, 0.5);
 }
-.list-media {
-  width: 4rem;
-  height: 4rem;
-  border-radius: 0.5rem;
-  border: 1px solid #27272a;
-  background: linear-gradient(160deg, #3f3f46 0%, #18181b 65%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: #52525b;
-  flex-shrink: 0;
-}
-.list-info { flex: 1; min-width: 0; }
-.list-name { font-size: 0.9375rem; font-weight: 500; color: #fafafa; }
-.list-price { margin-top: 0.15rem; font-size: 0.875rem; color: #a1a1aa; }
-.list-arrow { width: 20px; height: 20px; color: #52525b; flex-shrink: 0; }
-
-/* fila horizontal (scroll) */
-.h-scroll {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.5rem;
-  -webkit-overflow-scrolling: touch;
-}
-.h-scroll .card { min-width: 9.5rem; flex-shrink: 0; scroll-snap-align: start; }
-
-.card { display: block; }
-.card-media {
-  aspect-ratio: 4 / 5;
-  border-radius: 0.5rem;
-  border: 1px solid #27272a;
-  background: linear-gradient(160deg, #3f3f46 0%, #18181b 65%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-.card:hover .card-media { border-color: #52525b; transform: translateY(-2px); }
-.card-initial { font-size: 1.5rem; font-weight: 700; color: #52525b; letter-spacing: -0.02em; }
-.card-name { margin-top: 0.75rem; font-size: 0.8125rem; color: #a1a1aa; }
-.card-price { margin-top: 0.25rem; font-size: 0.9375rem; font-weight: 600; color: #fafafa; }
+.p-grid .p-card { min-height: 15rem; }
+.p-grid .p-art { width: 62%; }
+.p-grid .p-label { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
 
 /* ── desktop rail (hover-expand) ────────────────────── */
 .rail {
@@ -310,5 +288,5 @@ a { text-decoration: none; color: inherit; }
   .rail { transition: none; width: 300px; }
   .rail-label { opacity: 1; }
   .overlay { transition: none; transform: none; opacity: 0; pointer-events: none; }
-  .card-media { transition: none; }
+  .p-card { transition: none; }
 }
