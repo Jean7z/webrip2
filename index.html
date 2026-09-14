@@ -5,127 +5,232 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Flowing Waves</title>
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  a { text-decoration:none; color:inherit; }
 
-  .hero-section {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background: #000;
+  /* ── layout ─────────────────────────────────────────── */
+  .app {
+    display: flex;
+    width:100%; height:100vh; height:100dvh;
+    overflow:hidden;
+    font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:#000;
+  }
+  .main-area { position:relative; flex:1; min-width:0; }
+
+  /* ── waves ──────────────────────────────────────────── */
+  #waves { position:absolute; inset:0; z-index:0; }
+  #waves canvas { display:block; width:100%!important; height:100%!important; }
+
+  /* ── mobile topbar ──────────────────────────────────── */
+  .topbar {
+    position:relative; z-index:50;
+    height:2.5rem;
+    display:flex; align-items:center; justify-content:flex-end;
+    padding:0 1rem;
+    background:#262626;
+  }
+  .topbar button { background:none; border:none; color:#e5e5e5; cursor:pointer; }
+
+  @media(min-width:768px){ .topbar { display:none; } }
+
+  /* ── desktop rail ───────────────────────────────────── */
+  .rail {
+    height:100dvh; width:60px;
+    background:#262626;
+    display:none; flex-direction:column; justify-content:space-between;
+    padding:1rem 0.75rem;
+    flex-shrink:0;
+    transition:width .3s ease-in-out;
+    overflow:hidden;
+  }
+  .rail:hover { width:300px; }
+  .rail:hover .rail-label { opacity:1; transition-delay:.15s; }
+
+  @media(min-width:768px){ .rail{display:flex;} }
+
+  .rail-label {
+    opacity:0;
+    white-space:nowrap;
+    transition:opacity .2s ease-in-out;
   }
 
-  #waves {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
+  .rail-links { display:flex; flex-direction:column; gap:0.5rem; margin-top:2rem; }
+
+  /* ── shared link/logo/avatar ────────────────────────── */
+  .link, .overlay-link {
+    display:flex; align-items:center; gap:0.5rem;
+    padding:0.5rem 0; font-size:0.875rem; color:#e5e5e5;
+    white-space:nowrap; transition:transform .15s ease;
   }
-  #waves canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
+  .link:hover, .overlay-link:hover { transform:translateX(4px); }
+  .link svg, .overlay-link svg { width:20px; height:20px; flex-shrink:0; }
+
+  .logo { display:flex; align-items:center; gap:0.5rem; font-size:0.875rem; color:#fff; white-space:nowrap; }
+  .logo-box {
+    width:1.5rem; height:1.25rem; background:#fff; flex-shrink:0;
+    border-radius: 0.5rem 0.125rem 0.5rem 0.125rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    #waves canvas { display: none; }
-    .hero-section { background: radial-gradient(120% 90% at 50% 0%, #101b33 0%, #060b16 100%); }
+  .avatar {
+    width:1.75rem; height:1.75rem; border-radius:9999px;
+    background:#525252; color:#fff; font-size:0.7rem;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  /* ── mobile overlay ─────────────────────────────────── */
+  .overlay {
+    position:fixed; inset:0; z-index:100;
+    background:#171717;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:2.5rem;
+    transform:translateX(-100%); opacity:0; pointer-events:none;
+    transition:transform .3s ease-in-out, opacity .3s ease-in-out;
+  }
+  .overlay.open { transform:translateX(0); opacity:1; pointer-events:auto; }
+  .overlay-close {
+    position:absolute; right:2.5rem; top:2.5rem;
+    background:none; border:none; color:#e5e5e5; cursor:pointer;
+  }
+  .overlay-links { display:flex; flex-direction:column; gap:0.5rem; margin-top:2rem; }
+
+  @media(min-width:768px){ .overlay { display:none; } }
+
+  /* ── reduced motion ─────────────────────────────────── */
+  @media(prefers-reduced-motion:reduce){
+    .rail{transition:none;width:300px;}
+    .rail-label{opacity:1;}
+    .overlay{transition:none;transform:none;opacity:0;pointer-events:none;}
+    #waves canvas{display:none;}
+    .app{background:radial-gradient(120% 90% at 50% 0%,#101b33 0%,#060b16 100%);}
   }
 </style>
 </head>
 <body>
-<main class="hero-section">
-  <div id="waves" aria-label="Animated wave background"></div>
+<main class="app">
+
+  <!-- ── desktop rail ─────────────────────────────────── -->
+  <aside class="rail">
+    <div>
+      <a class="logo" href="#"><div class="logo-box"></div><span class="rail-label">Acet Labs</span></a>
+      <div class="rail-links">
+        <a class="link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span class="rail-label">Dashboard</span></a>
+        <a class="link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="rail-label">Profile</span></a>
+        <a class="link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg><span class="rail-label">Settings</span></a>
+        <a class="link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span class="rail-label">Logout</span></a>
+      </div>
+    </div>
+    <a class="link" href="#"><div class="avatar">MA</div><span class="rail-label">Manu Arora</span></a>
+  </aside>
+
+  <div class="main-area">
+    <!-- mobile topbar: 3 barras -->
+    <div class="topbar">
+      <button id="menu-btn" aria-label="Abrir menú">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="waves" aria-label="Animated wave background"></div>
+  </div>
+
+  <!-- ── mobile overlay ───────────────────────────────── -->
+  <div class="overlay" id="overlay">
+    <button class="overlay-close" id="close-btn" aria-label="Cerrar menú">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div>
+      <a class="logo overlay-link" href="#"><div class="logo-box"></div><span>Acet Labs</span></a>
+      <div class="overlay-links">
+        <a class="overlay-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span>Dashboard</span></a>
+        <a class="overlay-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></a>
+        <a class="overlay-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg><span>Settings</span></a>
+        <a class="overlay-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span>Logout</span></a>
+      </div>
+    </div>
+    <a class="overlay-link" href="#"><div class="avatar">MA</div><span>Manu Arora</span></a>
+  </div>
+
 </main>
 
+<!-- ── waves shader ──────────────────────────────────── -->
 <script type="module">
 import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
 
 const container = document.getElementById("waves");
-
 let renderer;
 try {
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   container.appendChild(renderer.domElement);
-} catch (e) {
+} catch(e) {
   container.innerHTML = '<p style="color:#fff;text-align:center;padding-top:40vh">WebGL no disponible</p>';
   throw e;
 }
 
-const scene  = new THREE.Scene();
-const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-const clock  = new THREE.Clock();
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const clock = new THREE.Clock();
 
 const vertexShader = `
 varying vec2 vTextureCoord;
-void main() {
-  vTextureCoord = uv;
-  gl_Position = vec4(position, 1.0);
-}`;
+void main(){ vTextureCoord=uv; gl_Position=vec4(position,1.0); }`;
 
 const fragmentShader = `
 precision mediump float;
-uniform vec2  iResolution;
-uniform float iTime;
-uniform bool  hasActiveReminders;
-uniform bool  hasUpcomingReminders;
-uniform bool  disableCenterDimming;
-varying vec2  vTextureCoord;
+uniform vec2 iResolution; uniform float iTime;
+uniform bool hasActiveReminders; uniform bool hasUpcomingReminders; uniform bool disableCenterDimming;
+varying vec2 vTextureCoord;
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-  vec2 uv = (2.0 * fragCoord - iResolution.xy) / min(iResolution.x, iResolution.y);
-
-  vec2  center = iResolution.xy * 0.5;
-  float dist   = distance(fragCoord, center);
-  float radius = min(iResolution.x, iResolution.y) * 0.5;
-  float dim    = disableCenterDimming ? 1.0 : smoothstep(radius * 0.3, radius * 0.5, dist);
-
-  for (float i = 1.0; i < 10.0; i++) {
-    uv.x += 0.6 / i * cos(i * 2.5 * uv.y + iTime);
-    uv.y += 0.6 / i * cos(i * 1.5 * uv.x + iTime);
+void mainImage(out vec4 fragColor,in vec2 fragCoord){
+  vec2 uv=(2.0*fragCoord-iResolution.xy)/min(iResolution.x,iResolution.y);
+  vec2 center=iResolution.xy*0.5;
+  float dist=distance(fragCoord,center);
+  float radius=min(iResolution.x,iResolution.y)*0.5;
+  float dim=disableCenterDimming?1.0:smoothstep(radius*0.3,radius*0.5,dist);
+  for(float i=1.0;i<10.0;i++){
+    uv.x+=0.6/i*cos(i*2.5*uv.y+iTime);
+    uv.y+=0.6/i*cos(i*1.5*uv.x+iTime);
   }
-
-  if      (hasActiveReminders)   fragColor = vec4(vec3(0.1, 0.3, 0.6) / abs(sin(iTime - uv.y - uv.x)), 1.0);
-  else if (hasUpcomingReminders) fragColor = vec4(vec3(0.1, 0.5, 0.2) / abs(sin(iTime - uv.y - uv.x)), 1.0);
-  else                           fragColor = vec4(vec3(0.1)           / abs(sin(iTime - uv.y - uv.x)), 1.0);
-
-  if (!disableCenterDimming) fragColor.rgb = mix(fragColor.rgb * 0.3, fragColor.rgb, dim);
+  if(hasActiveReminders)      fragColor=vec4(vec3(0.1,0.3,0.6)/abs(sin(iTime-uv.y-uv.x)),1.0);
+  else if(hasUpcomingReminders)fragColor=vec4(vec3(0.1,0.5,0.2)/abs(sin(iTime-uv.y-uv.x)),1.0);
+  else                        fragColor=vec4(vec3(0.1)/abs(sin(iTime-uv.y-uv.x)),1.0);
+  if(!disableCenterDimming) fragColor.rgb=mix(fragColor.rgb*0.3,fragColor.rgb,dim);
 }
-
-void main() {
-  vec4 color;
-  mainImage(color, vTextureCoord * iResolution);
-  gl_FragColor = color;
+void main(){
+  vec4 c; mainImage(c,vTextureCoord*iResolution); gl_FragColor=c;
 }`;
 
 const uniforms = {
-  iTime:                { value: 0 },
-  iResolution:          { value: new THREE.Vector2() },
-  iMouse:               { value: new THREE.Vector2() },
-  hasActiveReminders:   { value: false },
-  hasUpcomingReminders: { value: false },
-  disableCenterDimming: { value: true }, // sin sombra central
+  iTime:                {value:0},
+  iResolution:          {value:new THREE.Vector2()},
+  iMouse:               {value:new THREE.Vector2()},
+  hasActiveReminders:   {value:false},
+  hasUpcomingReminders: {value:false},
+  disableCenterDimming: {value:true},
 };
 
-const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
-const geometry = new THREE.PlaneGeometry(2, 2);
-scene.add(new THREE.Mesh(geometry, material));
+const material = new THREE.ShaderMaterial({vertexShader,fragmentShader,uniforms});
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),material));
 
-const onResize = () => {
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-  renderer.setSize(w, h);
-  uniforms.iResolution.value.set(w, h);
+const onResize=()=>{
+  const w=container.clientWidth, h=container.clientHeight;
+  renderer.setSize(w,h); uniforms.iResolution.value.set(w,h);
 };
-window.addEventListener("resize", onResize);
-onResize();
+window.addEventListener("resize",onResize); onResize();
 
-renderer.setAnimationLoop(() => {
-  uniforms.iTime.value = clock.getElapsedTime() * 0.4; // slow motion
-  renderer.render(scene, camera);
+renderer.setAnimationLoop(()=>{
+  uniforms.iTime.value=clock.getElapsedTime()*0.4;
+  renderer.render(scene,camera);
 });
+</script>
+
+<!-- ── sidebar toggle ─────────────────────────────────── -->
+<script>
+(function(){
+  var ov=document.getElementById('overlay');
+  document.getElementById('menu-btn').addEventListener('click',function(){ ov.classList.add('open'); });
+  document.getElementById('close-btn').addEventListener('click',function(){ ov.classList.remove('open'); });
+})();
 </script>
 </body>
 </html>
