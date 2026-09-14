@@ -5,16 +5,32 @@ import * as THREE from "./vendor/three.module.min.js";
 const container = document.getElementById("waves");
 let renderer;
 
-try {
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-  // 1.5: suficiente con el blur del fondo, la mitad de pixels que 2x
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-  container.appendChild(renderer.domElement);
-} catch (e) {
+// Chrome (Android) puede fallar al crear el contexto con antialias —
+// reintenta con opciones mas conservadoras antes de rendirse.
+const attempts = [
+  { antialias: true, powerPreference: "high-performance" },
+  { antialias: false },
+  { antialias: false, failIfMajorPerformanceCaveat: false, depth: false, stencil: false },
+];
+let lastErr;
+for (const opts of attempts) {
+  try {
+    renderer = new THREE.WebGLRenderer(opts);
+    break;
+  } catch (e) {
+    lastErr = e;
+  }
+}
+
+if (!renderer) {
   container.innerHTML =
     '<p style="color:#fff;text-align:center;padding-top:40vh">WebGL no disponible</p>';
-  throw e;
+  throw lastErr;
 }
+// 1.5: suficiente con el blur del fondo, la mitad de pixels que 2x
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+container.appendChild(renderer.domElement);
+renderer.domElement.addEventListener("webglcontextlost", (e) => e.preventDefault());
 
 const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -44,6 +60,7 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
   else if(hasUpcomingReminders)fragColor=vec4(vec3(0.1,0.5,0.2)/abs(sin(iTime-uv.y-uv.x)),1.0);
   else                         fragColor=vec4(vec3(0.1)/abs(sin(iTime-uv.y-uv.x)),1.0);
   if(!disableCenterDimming) fragColor.rgb=mix(fragColor.rgb*0.3,fragColor.rgb,dim);
+  fragColor.rgb*=0.45; // oscurecer el fondo (ajustable)
 }
 void main(){
   vec4 c; mainImage(c,vTextureCoord*iResolution); gl_FragColor=c;

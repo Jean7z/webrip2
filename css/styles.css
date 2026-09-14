@@ -302,6 +302,4 @@ a { text-decoration: none; color: inherit; }
   .rail-label { opacity: 1; }
   .overlay { transition: none; transform: none; opacity: 0; pointer-events: none; }
   .card-media { transition: none; }
-  #waves canvas { display: none; }
-  .app { background: radial-gradient(120% 90% at 50% 0%, #101b33 0%, #060b16 100%); }
 }
