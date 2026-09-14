@@ -60,7 +60,7 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
   else if(hasUpcomingReminders)fragColor=vec4(vec3(0.1,0.5,0.2)/abs(sin(iTime-uv.y-uv.x)),1.0);
   else                         fragColor=vec4(vec3(0.1)/abs(sin(iTime-uv.y-uv.x)),1.0);
   if(!disableCenterDimming) fragColor.rgb=mix(fragColor.rgb*0.3,fragColor.rgb,dim);
-  fragColor.rgb*=0.45; // oscurecer el fondo (ajustable)
+  fragColor.rgb*=0.3; // oscurecer el fondo (ajustable)
 }
 void main(){
   vec4 c; mainImage(c,vTextureCoord*iResolution); gl_FragColor=c;

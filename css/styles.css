@@ -33,7 +33,15 @@ a { text-decoration: none; color: inherit; }
   filter: blur(10px) contrast(1.05);
   transform: scale(1.05);
 }
-#waves canvas { display: block; width: 100% !important; height: 100% !important; }
+#waves canvas { display: block; width: 100% !important; height: 100% !important; position: relative; z-index: 0; }
+/* capa oscura sobre el shader: fondo mas negro y opaco */
+#waves::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
 
 /* Contenido que se desplaza sobre las ondas */
 .scroll {
@@ -278,7 +286,8 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.5rem;
+  /* padding-top deja el contenido debajo del topbar (4rem) */
+  padding: 5rem 2.5rem 2.5rem;
   transform: translateX(-100%);
   opacity: 0;
   pointer-events: none;
